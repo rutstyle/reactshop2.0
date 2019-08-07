@@ -353,6 +353,7 @@ module.exports = function(webpackEnv) {
                       },
                     },
                   ],
+                  "react-html-attrs" // 处理className问题
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -400,13 +401,27 @@ module.exports = function(webpackEnv) {
               exclude: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
+                modules: true, // 开启CSS模块化
+                localIdentName: '[local]:[hash:base64:6]',
                 sourceMap: isEnvProduction && shouldUseSourceMap,
               }),
+              exclude: [
+                path.join(__dirname, '../node_modules'),
+                path.join(__dirname, '../src/assets/css/common'),
+              ],
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
               // See https://github.com/webpack/webpack/issues/6571
               sideEffects: true,
+            },
+            {
+              test: /\.css$/,
+              use: ['style-loader', 'css-loader'],
+              include: [
+                path.join(__dirname, '../node_modules'),
+                path.join(__dirname, '../src/assets/css/common'),
+              ]
             },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
             // using the extension .module.css
