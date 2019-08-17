@@ -1,7 +1,8 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import asyncComponent from "../../../components/asyncComponent";
 import CSS from "../../../assets/css/home/index/index.css";
+import config from "../../../assets/js/conf/config";
 const IndexComponent = asyncComponent(() => import('../index/index'));
 console.log(CSS);
 
@@ -11,7 +12,8 @@ export default class HomeComponent extends React.Component {
       <div>
         <React.Fragment>
           <Switch>
-            <Route path="/home/index" component={IndexComponent}></Route>
+            <Route path={config.path + "/home/index"} component={IndexComponent}></Route>
+            <Redirect to={config.path + "/home/index"}></Redirect>
           </Switch>
         </React.Fragment>
 
