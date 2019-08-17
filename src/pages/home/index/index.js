@@ -1,4 +1,5 @@
 import React from "react";
+import config from "../../../assets/js/conf/config";
 import CSS from "../../../assets/css/home/index/index.css";
 
 import "../../../assets/css/common/swiper.min.css";
@@ -16,7 +17,7 @@ export default class HomeComponent extends React.Component {
     }
 
     getSwiper() {
-        request("http://vueshop.glbuys.com/api/home/index/slide?token=1ec949a15fb709370f").then(response => {
+        request(config.baseUrl + "/api/home/index/slide?token=1ec949a15fb709370f").then(response => {
             if (response.code === 200) {
                 this.setState({ images: response.data }, () => {
                     new Swiper("." + CSS['banner'], {
