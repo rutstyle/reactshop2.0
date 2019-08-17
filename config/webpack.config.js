@@ -314,6 +314,9 @@ module.exports = function(webpackEnv) {
             },
           ],
           include: paths.appSrc,
+          exclude: [
+            path.join(__dirname, '../src/assets/js/libs'),
+          ]        
         },
         {
           // "oneOf" will traverse all following loaders until one will

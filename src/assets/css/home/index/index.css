@@ -1,0 +1,34 @@
+.search-header{
+    height: 2.5rem;
+    background: linear-gradient(rgba(1,1,1,0.2) 0%, rgba(255,255,255,0) 100%);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    text-align: center;
+}
+.search-header.red-bg{
+    background: linear-gradient(rgba(235,22,37) 0%, rgba(255,255,255,0) 100%);
+}
+.search-header input{
+    background-color: transparent;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    height: 24px;
+    width: 90%;
+    color: white;
+}
+
+.banner{
+    width: 100%;
+    height: 9.1rem;
+    background-color: red;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner img{
+    width: 100%;
+    height: 100%;
+}
