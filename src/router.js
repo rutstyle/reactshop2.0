@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 
 import asyncComponent from "./components/asyncComponent";
-// import IndexComponent from "./pages/home/index/index";
-const IndexComponent = asyncComponent(() => import('./pages/home/index/index'));
+const HomeComponent = asyncComponent(() => import('./pages/home/home/index'));
 
 export default class RouterComponent extends Component {
     render() {
         return (
             <HashRouter>
                 <Switch>
-                    <Route exact path="/" component={IndexComponent}></Route>
+                    <Route path="/" component={HomeComponent}></Route>
                 </Switch>
             </HashRouter>
         )
