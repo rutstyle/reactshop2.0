@@ -10,10 +10,23 @@ import { request } from "../../../assets/js/libs/request";
 console.log(CSS);
 
 export default class HomeComponent extends React.Component {
-    state = { images: [] };
+    state = {
+        images: [],
+        isScroll: true
+    };
+
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this.handleWindowScroll);
+    }
 
     componentDidMount() {
         this.getSwiper();
+        window.addEventListener('scroll', this.handleWindowScroll);
+    }
+
+    handleWindowScroll = () => {
+        let top = document.documentElement.scrollTop + document.body.scrollTop;
+        this.setState({ isScroll: top > 182 });
     }
 
     getSwiper() {
@@ -36,7 +49,7 @@ export default class HomeComponent extends React.Component {
     render() {
         return (
             <div>
-                <div className={CSS['search-header'] + " " + CSS['red-bg']}>
+                <div className={this.state.isScroll ? CSS['search-header'] + " " + CSS['red-bg'] : CSS['search-header']}>
                     <input type="text" placeholder="Search" />
                 </div>
                 <div className={CSS['banner']}>
@@ -52,6 +65,9 @@ export default class HomeComponent extends React.Component {
                         <div class="swiper-slide"><img src="http://vueshop.glbuys.com/uploadfiles/1484285302.jpg" alt="" /></div> */}
                     </div>
                     <div class="swiper-pagination"></div>
+                </div>
+                <div style={{ height: "1500px" }}>
+
                 </div>
             </div>
         )
