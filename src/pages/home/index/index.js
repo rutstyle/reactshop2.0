@@ -54,7 +54,7 @@ export default class HomeComponent extends React.Component {
         return (
             <div>
                 <div className={this.state.isScroll ? CSS['search-header'] + " " + CSS['red-bg'] : CSS['search-header']}>
-                    <div className={CSS['search-icon']} onClick={this.navigate.bind(this, '/goods/classify')}></div>
+                    <div className={CSS['search-icon']} onClick={this.navigate.bind(this, '/goods/classify/items')}></div>
                     <input type="text" placeholder="Search" />
                 </div>
                 <div className={CSS['banner']}>
