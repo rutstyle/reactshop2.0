@@ -12,10 +12,10 @@ console.log(CSS);
 export default class HomeComponent extends React.Component {
     state = {
         images: [],
-        isScroll: true
+        isScroll: false
     };
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         window.removeEventListener('scroll', this.handleWindowScroll);
     }
 
@@ -46,10 +46,15 @@ export default class HomeComponent extends React.Component {
         });
     }
 
+    navigate(url) {
+        this.props.history.push(config.path + url);
+    }
+
     render() {
         return (
             <div>
                 <div className={this.state.isScroll ? CSS['search-header'] + " " + CSS['red-bg'] : CSS['search-header']}>
+                    <div className={CSS['search-icon']} onClick={this.navigate.bind(this, '/goods/classify')}></div>
                     <input type="text" placeholder="Search" />
                 </div>
                 <div className={CSS['banner']}>

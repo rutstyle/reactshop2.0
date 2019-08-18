@@ -16,8 +16,18 @@
     border: 1px solid whitesmoke;
     border-radius: 5px;
     height: 24px;
-    width: 90%;
+    width: calc(100% - 60px);
     color: white;
+}
+.search-icon{
+    width: 20px;
+    height: 18px;
+    display: inline-block;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAgCAYAAABgrToAAAAAAXNSR0IArs4c6QAAAHlJREFUWAnt2LEJwDAMRFE5c2ShLOKhsp69h3ISeAI1CnyBiJvA8dwcHu7+mNmrvbWdZivMHAq4dOgW7kDt65y6fiPg1AZnt8kr7haKPAgggAACfxOIskCbKdwabaaAlw0rmhaDAAIIIIBAQYA2U8CLX2kzFcB8m/kAgGUmQShl8pcAAAAASUVORK5CYII=) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 6px;
+    left: 6px;
 }
 
 .banner{
