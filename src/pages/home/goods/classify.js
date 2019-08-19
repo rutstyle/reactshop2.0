@@ -43,9 +43,17 @@ export default class ClassifyComponent extends React.Component {
         });
     }
 
-    replaceUrl(url, cid) {
+    replaceUrl(url, cid, index) {
         this.cid = cid;
         this.props.history.replace(config.path + url);
+
+        let containerHeight = document.getElementById("scroll-classify").offsetHeight;
+        let wrapHeight = document.getElementById("scroll-classify").scrollHeight;
+        let itemHeight = this.refs["item-" + index].offsetHeight;
+        let position = itemHeight * index;
+        if (position > containerHeight / 3 && position + containerHeight - itemHeight < wrapHeight) {
+            this.myScroll.scrollTo(0, -position, 300, IScroll.utils.ease.elastic);
+        }
     }
 
     render() {
@@ -59,7 +67,7 @@ export default class ClassifyComponent extends React.Component {
                         <div id="wrap">
                             {
                                 this.state.classify.map((item, index) => {
-                                    return (<div key={index} className={this.cid === item.cid ? Css['classify-item'] + " " + Css['active'] : Css['classify-item']} onClick={this.replaceUrl.bind(this, "/goods/classify/items?cid=" + item.cid, item.cid)}>{item.title}</div>)
+                                    return (<div ref={"item-" + index} key={index} className={this.cid === item.cid ? Css['classify-item'] + " " + Css['active'] : Css['classify-item']} onClick={this.replaceUrl.bind(this, "/goods/classify/items?cid=" + item.cid, item.cid, index)}>{item.title}</div>)
                                 })
                             }
                         </div>
