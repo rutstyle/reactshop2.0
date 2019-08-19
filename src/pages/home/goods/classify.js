@@ -3,11 +3,18 @@ import { Switch, Route } from "react-router-dom";
 import IScroll from "../../../assets/js/libs//iscroll-lite.min";
 import config from "../../../assets/js/conf/config";
 import Css from "../../../assets/css/home/goods/classify.css";
+import { request } from "../../../assets/js/libs/request";
 
 import ItemsComponent from "./items";
 
 export default class ClassifyComponent extends React.Component {
+    myScroll = null;
+    state = {
+        classify: []
+    }
+
     componentDidMount() {
+        this.getClassifyData();
         this.resolveScroll();
     }
 
@@ -15,12 +22,20 @@ export default class ClassifyComponent extends React.Component {
         this.props.history.goBack();
     }
 
+    getClassifyData() {
+        request(config.baseUrl + "/api/home/category/menu?token=1ec949a15fb709370f").then(response => {
+            this.setState({ classify: response.data }, () => {
+                this.myScroll.refresh();
+            });
+        });
+    }
+
     resolveScroll() {
         document.getElementById("scroll-classify").addEventListener("touchmove", (e) => {
             e.preventDefault();
         }, false);
 
-        new IScroll('#scroll-classify', {
+        this.myScroll = new IScroll('#scroll-classify', {
             scrollX: false,
             scrollY: true,
             preventDefault: false
@@ -37,33 +52,11 @@ export default class ClassifyComponent extends React.Component {
                     <div id="scroll-classify" className={Css['classify-wrap']}>
                         <div id="wrap">
                             <div className={Css['classify-item'] + " " + Css['active']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
-                            <div className={Css['classify-item']}>潮流女装</div>
+                            {
+                                this.state.classify.map((item, index) => {
+                                    return (<div key={index} className={Css['classify-item']}>{item.title}</div>)
+                                })
+                            }
                         </div>
                     </div>
                     <div className={Css['goods-conent']}>
