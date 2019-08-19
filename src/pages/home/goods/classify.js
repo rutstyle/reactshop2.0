@@ -9,6 +9,7 @@ import ItemsComponent from "./items";
 
 export default class ClassifyComponent extends React.Component {
     myScroll = null;
+    cid = null;
     state = {
         classify: []
     }
@@ -42,6 +43,11 @@ export default class ClassifyComponent extends React.Component {
         });
     }
 
+    replaceUrl(url, cid) {
+        this.cid = cid;
+        this.props.history.replace(config.path + url);
+    }
+
     render() {
         return (
             <div>
@@ -51,10 +57,9 @@ export default class ClassifyComponent extends React.Component {
                 <div className={Css['goods-main']}>
                     <div id="scroll-classify" className={Css['classify-wrap']}>
                         <div id="wrap">
-                            <div className={Css['classify-item'] + " " + Css['active']}>潮流女装</div>
                             {
                                 this.state.classify.map((item, index) => {
-                                    return (<div key={index} className={Css['classify-item']}>{item.title}</div>)
+                                    return (<div key={index} className={this.cid === item.cid ? Css['classify-item'] + " " + Css['active'] : Css['classify-item']} onClick={this.replaceUrl.bind(this, "/goods/classify/items?cid=" + item.cid, item.cid)}>{item.title}</div>)
                                 })
                             }
                         </div>
