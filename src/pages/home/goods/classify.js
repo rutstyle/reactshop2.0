@@ -41,6 +41,10 @@ export default class ClassifyComponent extends React.Component {
             scrollY: true,
             preventDefault: false
         });
+
+        this.myScroll.on('scrollEnd', () => {
+            console.log('iScroll滚动结束');
+        });
     }
 
     replaceUrl(url, cid, index) {
