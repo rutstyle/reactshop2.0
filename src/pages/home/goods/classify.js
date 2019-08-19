@@ -17,6 +17,7 @@ export default class ClassifyComponent extends React.Component {
     componentDidMount() {
         this.getClassifyData();
         this.resolveScroll();
+        this.cid = new URLSearchParams(this.props.location.search).get('cid') || '492';
     }
 
     goBack() {
