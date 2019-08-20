@@ -7,3 +7,7 @@ html, body{
 .am-modal-alert-content{
     color: #000000;
 }
+
+.hide{
+    display: none;
+}

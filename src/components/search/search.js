@@ -3,11 +3,15 @@ import { Modal } from 'antd-mobile';
 import Css from "./search.css";
 
 export default class SearchComponent extends React.Component {
+    state = {
+        hideHistory: false
+    };
+
     showAlert = () => {
         const alert = Modal.alert;
         const alertInstance = alert('', '确认要删除吗？', [
             { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
-            { text: '确认', onPress: () => console.log('ok') },
+            { text: '确认', onPress: () => this.setState({ hideHistory: true }) },
         ]);
         setTimeout(() => {
             // 可以调用close方法以在外部close
@@ -24,7 +28,7 @@ export default class SearchComponent extends React.Component {
                     <input type="text" className={Css['search-input']} />
                     <input type="button" value="搜索" />
                 </div>
-                <div>
+                <div className={this.state.hideHistory ? "hide" : ""}>
                     <div>最近搜索<i className={Css['delete-history']} onClick={this.showAlert}></i></div>
                     <ul>
                         <li>女装</li><li>裙子</li>
