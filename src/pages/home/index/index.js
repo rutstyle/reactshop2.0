@@ -6,13 +6,16 @@ import "../../../assets/css/common/swiper.min.css";
 import Swiper from "../../../assets/js/libs/swiper.min";
 
 import { request } from "../../../assets/js/libs/request";
+import SearchComponent from "../../../components/search/search";
 
 console.log(CSS);
 
 export default class HomeComponent extends React.Component {
     state = {
         images: [],
-        isScroll: false
+        isScroll: false,
+        showSearchPage: false,
+        pageStyle: { display: "none" },
     };
 
     componentWillUnmount() {
@@ -50,12 +53,22 @@ export default class HomeComponent extends React.Component {
         this.props.history.push(config.path + url);
     }
 
+    popopSearchPage() {
+        this.setState({ showSearchPage: true });
+        this.setState({ pageStyle: { display: "block" } });
+    }
+
+    closeSearchPage(val) {
+        console.log(this, val);
+        this.setState({ pageStyle: { display: "none" } });
+    }
+
     render() {
         return (
             <div>
                 <div className={this.state.isScroll ? CSS['search-header'] + " " + CSS['red-bg'] : CSS['search-header']}>
                     <div className={CSS['search-icon']} onClick={this.navigate.bind(this, '/goods/classify/items')}></div>
-                    <input type="text" placeholder="Search" />
+                    <input type="text" style={{ fontSize: "0.6rem" }} placeholder="Search" onClick={this.popopSearchPage.bind(this)} />
                 </div>
                 <div className={CSS['banner']}>
                     <div class="swiper-wrapper">
@@ -64,16 +77,12 @@ export default class HomeComponent extends React.Component {
                                 <div class="swiper-slide" key={index}><a href="http://www.baidu.com" target="_blank" rel="noopener noreferrer"><img src={image.image} alt={image.title} /></a></div>
                             )
                         }
-
-                        {/* <div class="swiper-slide"><a href="http://www.baidu.com" target="_blank" rel="noopener noreferrer"><img src="http://vueshop.glbuys.com/uploadfiles/1484285302.jpg" alt="" /></a></div>
-                        <div class="swiper-slide"><img src="http://vueshop.glbuys.com/uploadfiles/1484285302.jpg" alt="" /></div>
-                        <div class="swiper-slide"><img src="http://vueshop.glbuys.com/uploadfiles/1484285302.jpg" alt="" /></div> */}
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
                 <div style={{ height: "1500px" }}>
-
                 </div>
+                <SearchComponent pageStyle={this.state.pageStyle} childStyle={this.closeSearchPage.bind(this)}></SearchComponent>
             </div>
         )
     }
