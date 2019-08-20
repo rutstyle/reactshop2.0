@@ -1,11 +1,13 @@
 import React from "react";
 import { Modal } from 'antd-mobile';
 import Css from "./search.css";
+import { connect } from "react-redux";
 
-export default class SearchComponent extends React.Component {
+class SearchComponent extends React.Component {
     state = {
         hideHistory: false
     };
+    historyKeywords = this.props.hk.keywords;
 
     showAlert = () => {
         const alert = Modal.alert;
@@ -20,18 +22,30 @@ export default class SearchComponent extends React.Component {
         }, 500000);
     };
 
+    addHistoryKeywords() {
+        let value = this.searchInput.value;
+        this.historyKeywords = this.historyKeywords.filter(x => x !== value);
+        this.historyKeywords.unshift(value);
+        localStorage['hk'] = JSON.stringify(this.historyKeywords);
+        this.props.dispatch({ type: "addHk", keywords: this.historyKeywords });
+    }
+
     render() {
         return (
             <div style={this.props.pageStyle} className={Css['page']}>
                 <div className={Css['search-bar']}>
                     <span className={Css['icon-close-page']} onClick={this.props.childStyle.bind(null, "123")}>X</span>
-                    <input type="text" className={Css['search-input']} />
-                    <input type="button" value="搜索" />
+                    <input type="text" ref={input => this.searchInput = input} className={Css['search-input']} />
+                    <input type="button" value="搜索" onClick={this.addHistoryKeywords.bind(this)} />
                 </div>
                 <div className={this.state.hideHistory ? "hide" : ""}>
                     <div>最近搜索<i className={Css['delete-history']} onClick={this.showAlert}></i></div>
                     <ul>
-                        <li>女装</li><li>裙子</li>
+                        {
+                            this.props.hk.keywords.map((x, index) =>
+                                <li key={index}>{x}</li>
+                            )
+                        }
                     </ul>
                 </div>
                 <div>
@@ -44,3 +58,7 @@ export default class SearchComponent extends React.Component {
         );
     }
 }
+
+export default connect(state => {
+    return state;
+})(SearchComponent);
