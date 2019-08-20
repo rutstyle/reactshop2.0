@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import asyncComponent from "../../../components/asyncComponent";
+import asyncComponent from "../../../components/async/asyncComponent";
 import CSS from "../../../assets/css/home/home/index.css";
 import config from "../../../assets/js/conf/config";
 

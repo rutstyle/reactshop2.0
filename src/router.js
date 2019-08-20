@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import asyncComponent from "./components/asyncComponent";
+import asyncComponent from "./components/async/asyncComponent";
 import config from "./assets/js/conf/config";
 
 const HomeComponent = asyncComponent(() => import('./pages/home/home/index'));
