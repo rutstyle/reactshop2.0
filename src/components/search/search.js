@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from 'antd-mobile';
 import Css from "./search.css";
 import { connect } from "react-redux";
+import actions from "../../actions";
 
 class SearchComponent extends React.Component {
     state = {
@@ -22,7 +23,7 @@ class SearchComponent extends React.Component {
                     this.setState({ hideHistory: true });
                     localStorage.removeItem('hk');
                     this.historyKeywords = [];
-                    this.props.dispatch({ type: "addHk", keywords: this.historyKeywords });
+                    this.props.dispatch(actions.hk.addHistoryKeywords(this.historyKeywords));
                     this.searchInput.value = "";
                 }
             },
@@ -39,7 +40,7 @@ class SearchComponent extends React.Component {
         this.historyKeywords = this.historyKeywords.filter(x => x !== value);
         this.historyKeywords.unshift(value);
         localStorage['hk'] = JSON.stringify(this.historyKeywords);
-        this.props.dispatch({ type: "addHk", keywords: this.historyKeywords });
+        this.props.dispatch(actions.hk.addHistoryKeywords(this.historyKeywords));
     }
 
     render() {

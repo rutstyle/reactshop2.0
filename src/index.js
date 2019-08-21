@@ -3,21 +3,10 @@ import ReactDOM from 'react-dom';
 import RouterComponent from "./router";
 import * as serviceWorker from './serviceWorker';
 import "./assets/css/common/public.css";
-import { createStore, combineReducers } from "redux";
+import { createStore } from "redux";
 import { Provider } from "react-redux";
+import reducers from "./reducers";
 
-function hkReducer(state = { keywords: JSON.parse(localStorage['hk'] || "[]") }, action) {
-    switch (action.type) {
-        case "addHk":
-            return Object.assign(Object.assign({}, { keywords: action.keywords }));
-        default:
-            return state;
-    }
-}
-
-let reducers = combineReducers({
-    hk: hkReducer
-});
 let store = createStore(reducers);
 
 class Index extends React.Component {
