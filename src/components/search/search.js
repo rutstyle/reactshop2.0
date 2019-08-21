@@ -5,15 +5,27 @@ import { connect } from "react-redux";
 
 class SearchComponent extends React.Component {
     state = {
-        hideHistory: false
+        hideHistory: this.props.hk.keywords.length <= 0
     };
     historyKeywords = this.props.hk.keywords;
+
+    componentWillReceiveProps(newProps) {
+        this.setState({ hideHistory: newProps.hk.keywords.length <= 0 })
+    }
 
     showAlert = () => {
         const alert = Modal.alert;
         const alertInstance = alert('', '确认要删除吗？', [
             { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
-            { text: '确认', onPress: () => this.setState({ hideHistory: true }) },
+            {
+                text: '确认', onPress: () => {
+                    this.setState({ hideHistory: true });
+                    localStorage.removeItem('hk');
+                    this.historyKeywords = [];
+                    this.props.dispatch({ type: "addHk", keywords: this.historyKeywords });
+                    this.searchInput.value = "";
+                }
+            },
         ]);
         setTimeout(() => {
             // 可以调用close方法以在外部close
