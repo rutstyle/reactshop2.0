@@ -4,14 +4,15 @@ import IScroll from "../../../assets/js/libs//iscroll-lite.min";
 import config from "../../../assets/js/conf/config";
 import Css from "../../../assets/css/home/goods/classify.css";
 import { request } from "../../../assets/js/libs/request";
-
+import SearchComponent from "../../../components/search/search";
 import ItemsComponent from "./items";
 
 export default class ClassifyComponent extends React.Component {
     myScroll = null;
     cid = null;
     state = {
-        classify: []
+        classify: [],
+        pageStyle: { display: "none" },
     }
 
     componentDidMount() {
@@ -61,11 +62,22 @@ export default class ClassifyComponent extends React.Component {
         }
     }
 
+    popopSearchPage() {
+        this.setState({ showSearchPage: true });
+        this.setState({ pageStyle: { display: "block" } });
+    }
+
+    closeSearchPage(val) {
+        console.log(this, val);
+        this.setState({ pageStyle: { display: "none" } });
+    }
+
     render() {
         return (
             <div>
                 <div className={Css['search-header']}>
                     <span className={Css['icon-back']} onClick={this.goBack.bind(this)}></span>
+                    <input type="text" className={Css['search-input']} onClick={this.popopSearchPage.bind(this)} />
                 </div>
                 <div className={Css['goods-main']}>
                     <div id="scroll-classify" className={Css['classify-wrap']}>
@@ -83,6 +95,7 @@ export default class ClassifyComponent extends React.Component {
                         </Switch>
                     </div>
                 </div>
+                <SearchComponent pageStyle={this.state.pageStyle} childStyle={this.closeSearchPage.bind(this)}></SearchComponent>
             </div>
         );
     }
