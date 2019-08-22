@@ -10,6 +10,10 @@ class SearchComponent extends React.Component {
     };
     historyKeywords = this.props.hk.keywords;
 
+    componentWillUnmount() {
+        this.setState = ((state, callback) => { return; });
+    }
+
     componentWillReceiveProps(newProps) {
         this.setState({ hideHistory: newProps.hk.keywords.length <= 0 })
     }
@@ -45,7 +49,7 @@ class SearchComponent extends React.Component {
 
     render() {
         return (
-            <div style={this.props.pageStyle} className={Css['page']}>
+            <div id="page" style={this.props.pageStyle} className={Css['page']}>
                 <div className={Css['search-bar']}>
                     <span className={Css['icon-close-page']} onClick={this.props.childStyle.bind(null, "123")}>X</span>
                     <input type="text" ref={input => this.searchInput = input} className={Css['search-input']} />

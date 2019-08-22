@@ -21,7 +21,9 @@ export default class HomeComponent extends React.Component {
   componentWillMount() {
     this.handleNavStyle();
   }
-
+  componentWillUnmount() {
+    this.setState = ((state, callback) => { return; });
+  }
   componentWillReceiveProps() {
     this.handleNavStyle();
   }
