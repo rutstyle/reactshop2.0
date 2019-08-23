@@ -25,6 +25,9 @@ export default class HomeComponent extends React.Component {
     componentDidMount() {
         this.getSwiper();
         window.addEventListener('scroll', this.handleWindowScroll);
+        setTimeout(() => {
+            document.documentElement.scrollTop = 0;
+        }, 0)
     }
 
     handleWindowScroll = () => {
